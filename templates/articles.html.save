@@ -1,16 +1,28 @@
-<div class="col-md-4">
-    <div class="card mb-4">
-        <div class="card-body">
-            <h5 class="card-title">{{ article.title.rendered }}</h5>
-            <p class="card-text">{{ article.excerpt.rendered | safe }}</p>
-            <a href="{{ article.link }}" class="btn btn-primary" target="_blank">Lire plus</a>
-            <a href="/modifier/{{ article.id }}" class="btn btn-warning">Modifier</a>
-            <form action="/supprimer/{{ article.id }}" method="POST" style="display:inline;">
-                <button type="submit" class="btn btn-danger">Supprimer</button>
-            </form>
+<div class="container mt-5">
+    <h1 class="text-center">Articles WordPress</h1>
+    <p class="text-center">Voici les derniers articles publiés.</p>
+
+    <div class="row">
+        {% for article in articles %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{ article.title.rendered }}</h5>
+                    <p class="card-text">{{ article.excerpt.rendered | safe }}</p>
+                    <a href="{{ article.link }}" class="btn btn-primary" target="_blank">Lire plus</a>
+                    <a href="/modifier/{{ article.id }}" class="btn btn-warning">Modifier</a>
+                    
+                    <form action="/supprimer/{{ article.id }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer cet article ?');">Supprimer</button>
+                    </form>
+                </div>
+            </div>
         </div>
+        {% endfor %}
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <!DOCTYPE html>
 <html lang="fr">
 <head>

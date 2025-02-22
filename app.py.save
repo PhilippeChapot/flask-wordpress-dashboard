@@ -10,8 +10,15 @@ app = Flask(__name__, template_folder='templates')
 # Paramètres WordPress
 WORDPRESS_API_URL = "https://podcastmagazine.fr/wp-json/wp/v2/posts"
 WORDPRESS_USERNAME = os.getenv("WORDPRESS_USERNAME", "PODCAST_MAGAZINE")
-WORDPRESS_PASSWORD = os.getenv("WORDPRESS_PASSWORD", "S4Gs 0u6c 1zbJ kHUw 1kFz kUOM")
+WORDPRESS_PASSWORD = os.getenv("WORDPRESS_PASSWORD", "VOTRE_MOT_DE_PASSE")
 
+
+
+
+@app.route('/articles')
+def articles():
+    try:
+        response = requests.get(WORDPRESS_API_URL, auth=(WORDPRESS_USERNAME, WORDPRESS_PASSWORD))
 @app.route('/articles')
 def articles():
     try:
@@ -27,6 +34,28 @@ def articles():
 
     except Exception as e:
         return f"Erreur lors de la récupération des articles: {str(e)}"
+
+
+        articles = response.json()
+@app.route('/articles')
+def articles():
+    try:
+        response = requests.get(WORDPRESS_API_URL, auth=(WORDPRESS_USERNAME, WORDPRESS_PASSWORD
+        articles = response.json()
+
+        print("Réponse API WordPress :", articles)  # Affiche la réponse API dans la console
+
+        if not isinstance(articles, list):  # Vérifier si la réponse est bien une liste
+            return f"Erreur : WordPress ne renvoie pas une liste d'articles. Réponse : {articles}"
+
+        return render_template("articles.html", articles=articles)
+
+    except Exception as e:
+        return f"Erreur lors de la récupération des articles: {str(e)}"
+        return render_template("articles.html", articles=articles)
+    except Exception as e:
+
+
 
 
 @app.route('/publier', methods=['GET', 'POST'])
@@ -93,5 +122,4 @@ def home():
     return render_template('dashboard.html')  # Assurez-vous que cette ligne est bien là
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug=True)
-
+    app.run(debug=True)
