@@ -9,7 +9,7 @@
 <body class="bg-light">
     <div class="container mt-5">
         <h1 class="text-center">Publier un Nouvel Article</h1>
-        <form method="POST" action="/publier">
+		<form method="POST" action="/publier" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="titre" class="form-label">Titre</label>
                 <input type="text" class="form-control" id="titre" name="titre" required>
@@ -18,6 +18,10 @@
                 <label for="contenu" class="form-label">Contenu</label>
                 <textarea class="form-control" id="contenu" name="contenu" rows="5" required></textarea>
             </div>
+	    <div class="mb-3">
+       		 <label for="image" class="form-label">Image</label>
+       		 <input type="file" class="form-control" id="image" name="image">
+   	 </div>
             <button type="submit" class="btn btn-success">Publier</button>
         </form>
     </div>
